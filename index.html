@@ -1,0 +1,1526 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vivendo do Direito da Saúde — Cristiano Sobral</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --preto: #0A0906;
+      --fundo: #111008;
+      --ouro: #C9A87C;
+      --ouro-claro: #E8D4A8;
+      --ouro-escuro: #8B6535;
+      --branco: #FFFFFF;
+      --prata: #C8C0A0;
+      --superficie: #2A2218;
+      --card-bg: #1A1510;
+      --card-border: #3A2E1A;
+      --muted: #6B5B3A;
+      --ouro-muted: #8B7550;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--fundo);
+      color: var(--prata);
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    strong { color: var(--ouro-claro); font-weight: 600; }
+    em { font-style: italic; }
+
+    /* ── LAYOUT ── */
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 2rem; }
+    .section { padding: 80px 0; }
+
+    /* ── METALLIC RIBBON ── */
+    .ribbon {
+      height: 1px;
+      background: linear-gradient(to right, transparent 0%, var(--ouro-escuro) 20%, var(--ouro) 50%, var(--ouro-escuro) 80%, transparent 100%);
+    }
+
+    /* ── ORNAMENT DIVIDER SVG ── */
+    .orn { display: block; margin: 0 auto; }
+
+    /* ── TYPOGRAPHY ── */
+    .label {
+      font-family: Arial, sans-serif;
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .section-heading {
+      font-family: Arial, sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--ouro-claro);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .body-text {
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      color: var(--prata);
+      line-height: 1.7;
+    }
+
+    /* ── BUTTONS ── */
+    @keyframes btn-shimmer {
+      0%   { transform: translateX(-220%) skewX(-12deg); opacity: 0; }
+      12%  { opacity: 1; }
+      88%  { opacity: 1; }
+      100% { transform: translateX(420%) skewX(-12deg); opacity: 0; }
+    }
+    @keyframes btn-glow {
+      0%, 100% {
+        box-shadow: 0 4px 20px rgba(0,0,0,.55), 0 0 0 0 rgba(232,212,168,0);
+        border-color: rgba(184,145,74,.5);
+      }
+      50% {
+        box-shadow: 0 4px 20px rgba(0,0,0,.55), 0 0 28px 6px rgba(232,212,168,.28);
+        border-color: var(--ouro-claro);
+      }
+    }
+    .btn-primary {
+      position: relative;
+      display: inline-flex; align-items: center; gap: .75rem;
+      background: linear-gradient(160deg, #E8D4A8 0%, #C9A87C 55%, #B8914A 100%);
+      color: var(--preto);
+      border: .75px solid rgba(184,145,74,.6);
+      font-family: Arial, sans-serif; font-size: 13px; font-weight: 700;
+      letter-spacing: .16em; text-transform: uppercase;
+      padding: 1.15rem 3rem; border-radius: 12px;
+      text-decoration: none; cursor: pointer;
+      overflow: hidden;
+      animation: btn-glow 2.8s ease-in-out infinite;
+      transition: color .25s, letter-spacing .25s;
+    }
+    .btn-primary:hover {
+      color: var(--preto);
+      letter-spacing: .2em;
+      background: linear-gradient(160deg, #F0DFB8 0%, #E8D4A8 55%, #C9A87C 100%);
+      box-shadow: 0 0 36px 8px rgba(201,168,124,.35), 0 4px 24px rgba(0,0,0,.5);
+      animation-play-state: paused;
+    }
+    /* Diagonal shimmer beam — infinite */
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: -10%; left: 0;
+      width: 38%; height: 120%;
+      background: linear-gradient(
+        108deg,
+        transparent 18%,
+        rgba(255,255,240,.45) 48%,
+        rgba(255,255,255,.30) 50%,
+        transparent 80%
+      );
+      transform: translateX(-220%) skewX(-12deg);
+      animation: btn-shimmer 3.2s ease-in-out infinite;
+      pointer-events: none;
+    }
+    /* Art Déco top edge gold line */
+    .btn-primary::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(to right, transparent 0%, var(--ouro-escuro) 20%, var(--ouro) 50%, var(--ouro-escuro) 80%, transparent 100%);
+      opacity: .75;
+      pointer-events: none;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .a1 { animation: fadeUp .8s ease forwards; animation-delay: .1s; opacity: 0; }
+    .a2 { animation: fadeUp .8s ease forwards; animation-delay: .35s; opacity: 0; }
+    .a3 { animation: fadeUp .8s ease forwards; animation-delay: .6s; opacity: 0; }
+    .a4 { animation: fadeUp .8s ease forwards; animation-delay: .85s; opacity: 0; }
+    .a5 { animation: fadeUp .8s ease forwards; animation-delay: 1.1s; opacity: 0; }
+
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity .65s ease, transform .65s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── HERO ── */
+    #hero {
+      height: 900px;
+      min-height: unset;
+      display: flex; align-items: center;
+      text-align: left;
+      position: relative; overflow: hidden;
+      padding: 80px 0;
+    }
+    @media (max-width: 600px) {
+      #hero { height: 900px; align-items: flex-end; padding-bottom: 48px; }
+      #hero .hero-bg {
+        background: url('hero-bg-mobile.png') center top / 100% auto no-repeat, #000;
+      }
+      #hero .hero-logo { margin-bottom: 20px; }
+      #hero .hero-line1 { margin-bottom: 20px; }
+      #hero .hero-subtitle { margin: 20px 0; }
+    }
+    #hero > .container {
+      position: relative; z-index: 1;
+      width: 100%;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: url('hero-bg.png') center center / cover no-repeat;
+    }
+    .hero-inner { max-width: 640px; }
+
+    /* ── HERO LOGO ── */
+    .hero-logo {
+      margin-bottom: 2.5rem;
+    }
+    .hero-logo img {
+      width: clamp(160px, 28vw, 190px);
+      height: auto;
+      display: block;
+      margin: 0;
+    }
+
+    /* ── HERO HEADLINE ── */
+    .hero-inner { max-width: 640px; }
+    .hero-intro {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(11px, 1.4vw, 13px);
+      font-weight: 400;
+      letter-spacing: .26em;
+      color: var(--branco);
+      text-transform: uppercase;
+      margin-bottom: .8rem;
+    }
+    /* mesma hierarquia tipográfica do logo */
+    .hero-line1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 54px;
+      font-weight: 900;
+      color: var(--branco);
+      text-transform: uppercase;
+      line-height: 1.20;
+      letter-spacing: .01em;
+      display: block;
+      margin: 0 0 1.4rem 0;
+    }
+    .hero-line1 em { font-style: italic; color: var(--branco); }
+    .hero-h2 {
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--ouro);
+      text-transform: uppercase;
+      letter-spacing: .18em;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+    }
+    .hero-h2::before {
+      content: '';
+      width: 24px;
+      height: .75px;
+      background: var(--ouro-escuro);
+      flex-shrink: 0;
+      display: block;
+    }
+    #oportunidade .hero-h2::before { display: none; }
+    @media (max-width: 600px) {
+      .hero-line1 { font-size: 32px; }
+    }
+    .hero-area {
+      font-family: Arial, sans-serif;
+      font-size: clamp(9px, 1.1vw, 11px);
+      color: var(--ouro-muted);
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      margin-top: 1rem;
+      display: block;
+    }
+    .hero-subtitle {
+      font-size: 19px; color: var(--prata);
+      line-height: 1.7; max-width: 480px; margin: 2rem 0;
+    }
+
+    /* ── CORNER MARK ── */
+    .cm { position: absolute; }
+
+    /* ── SECTION HEADER ── */
+    .section-hdr { text-align: center; margin-bottom: 3rem; }
+    .section-hdr .label { margin-bottom: .7rem; display: block; }
+
+    /* ── STATS ── */
+    .stats-bar {
+      display: flex; justify-content: center; gap: 3rem;
+      flex-wrap: wrap;
+      border-top: .5px solid var(--superficie);
+      border-bottom: .5px solid var(--superficie);
+      padding: 2.5rem 0; margin: 2.5rem 0;
+    }
+    .stat-item { text-align: center; }
+    .stat-num {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 34px; font-weight: 700;
+      color: var(--ouro); display: block; line-height: 1;
+    }
+    .stat-lbl {
+      font-size: 10px; color: var(--muted);
+      letter-spacing: .1em; text-transform: uppercase; margin-top: .4rem;
+      display: block;
+    }
+
+    /* ── BLOCKQUOTE ── */
+    .bq {
+      border-left: 1.5px solid var(--ouro);
+      padding: 1rem 1.5rem;
+      background: rgba(201,168,124,.04);
+      margin: 2rem 0;
+    }
+    .bq p {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 24px; font-weight: 400;
+      color: var(--ouro-claro); font-style: italic; line-height: 1.5;
+    }
+
+    /* ── MODULES GRID ── */
+    .modules-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 1rem; margin-top: 2.5rem;
+    }
+    .module-card {
+      background: var(--card-bg);
+      border: .75px solid var(--card-border);
+      border-radius: 8px; padding: 1.4rem;
+      position: relative; overflow: hidden;
+      transition: border-color .3s;
+    }
+    .module-card:hover { border-color: var(--ouro-escuro); }
+    .module-card::before {
+      content: ''; position: absolute;
+      top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(to right, transparent, var(--ouro-escuro), transparent);
+    }
+    .mod-num { font-size: 10px; color: var(--muted); letter-spacing: .1em; text-transform: uppercase; margin-bottom: .5rem; }
+    .mod-icon { width: 22px; height: 22px; margin-bottom: .65rem; display: block; color: var(--ouro); }
+    .mod-title { font-size: 13px; font-weight: 600; color: var(--ouro-claro); margin-bottom: .45rem; line-height: 1.4; }
+    .mod-desc { font-size: 12px; color: var(--ouro-muted); line-height: 1.6; }
+
+    /* ── BONUS CARDS ── */
+    .bonus-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(250px, 340px));
+      gap: 1rem; margin-top: 2rem;
+      justify-content: center;
+    }
+    @media (max-width: 600px) {
+      .bonus-grid { grid-template-columns: 1fr; }
+      .bonus-heading { font-size: 14px; white-space: nowrap; }
+      #faq .container { max-width: 350px !important; }
+      #cta-final .container { max-width: 350px !important; }
+    }
+    .bonus-card {
+      background: var(--card-bg);
+      border: .75px solid var(--ouro);
+      border-radius: 8px; padding: 1.5rem;
+    }
+    .bonus-lbl { font-size: 10px; color: var(--ouro); letter-spacing: .12em; text-transform: uppercase; margin-bottom: .5rem; display: flex; align-items: center; gap: .4rem; }
+    .bl-icon { width: 14px; height: 14px; flex-shrink: 0; color: var(--ouro); }
+    .bonus-title { font-size: 14px; font-weight: 600; color: var(--ouro-claro); margin-bottom: .45rem; }
+    .bonus-desc { font-size: 12px; color: var(--ouro-muted); line-height: 1.6; }
+
+    /* ── VALOR LIST ── */
+    --vermelho: #9B2B2B;
+    .valor-list {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    .valor-list-header {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 0 .75rem;
+      border-bottom: .75px solid var(--superficie);
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+    .valor-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.3rem 0;
+      border-bottom: .5px solid var(--superficie);
+      transition: background .2s;
+      gap: 2rem;
+    }
+    .valor-item:hover { background: rgba(201,168,124,.03); }
+    .valor-item-left {
+      display: flex;
+      align-items: center;
+      gap: 1.4rem;
+    }
+    .valor-idx {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 11px;
+      color: var(--ouro-escuro);
+      letter-spacing: .1em;
+      flex-shrink: 0;
+      min-width: 20px;
+    }
+    .valor-name {
+      font-size: 15px;
+      color: var(--prata);
+      line-height: 1.4;
+    }
+    .valor-price {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 17px;
+      color: #A83232;
+      text-decoration: line-through;
+      text-decoration-color: #7A2020;
+      text-decoration-thickness: 1.5px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .valor-total {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.8rem 0 0;
+      border-top: .75px solid var(--ouro-escuro);
+      margin-top: .5rem;
+      gap: 2rem;
+    }
+    .valor-total-label {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--ouro-claro);
+    }
+    .valor-total-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: .3rem;
+    }
+    .valor-total-risked {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: #A83232;
+      text-decoration: line-through;
+      text-decoration-color: #7A2020;
+      text-decoration-thickness: 2px;
+    }
+    .valor-total-hint {
+      font-size: 11px;
+      color: var(--ouro);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .early-table { width: 100%; border-collapse: collapse; margin-top: 2rem; }
+    .early-table th {
+      font-size: 10px; color: var(--muted); letter-spacing: .1em;
+      text-transform: uppercase; text-align: left;
+      padding: .6rem 1rem; border-bottom: .75px solid var(--superficie);
+    }
+    .early-table td {
+      font-size: 13px; color: var(--prata);
+      padding: .9rem 1rem; border-bottom: .5px solid var(--superficie);
+    }
+    .early-table tr:first-child td { color: var(--ouro-claro); font-weight: 600; }
+    .early-table tr:last-child td { border-bottom: none; }
+
+    /* ── PRICE BLOCK (legacy, unused) ── */
+    .price-frame { display: none; }
+
+    /* ── INVESTIMENTO NOVA DOBRA ── */
+    .inv-band {
+      background: linear-gradient(160deg, #0E0C07 0%, #1A1408 40%, #0E0C07 100%);
+      padding: 80px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .inv-band::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 80% at 20% 50%, rgba(201,168,124,.06) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .inv-label {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    .inv-rule {
+      width: 200px;
+      height: .75px;
+      background: linear-gradient(to right, transparent, var(--ouro-escuro), var(--ouro), var(--ouro-escuro), transparent);
+      margin: 1rem auto 0;
+    }
+    .inv-layout {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .inv-from {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 24px;
+      font-weight: 400;
+      color: #A83232;
+      text-decoration: line-through;
+      text-decoration-color: #7A2020;
+      text-decoration-thickness: 2px;
+      margin-bottom: .5rem;
+    }
+    .inv-installment-tag {
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--ouro-muted);
+      text-transform: uppercase;
+      letter-spacing: .2em;
+      margin-bottom: .8rem;
+    }
+    .inv-price-hero {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      gap: .4rem;
+      line-height: 1;
+      margin: .6rem 0;
+    }
+    .inv-currency {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 32px;
+      font-weight: 400;
+      color: var(--ouro);
+      align-self: center;
+    }
+    .inv-amount {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(72px, 10vw, 110px);
+      font-weight: 900;
+      color: var(--ouro);
+      letter-spacing: -.02em;
+    }
+    .inv-cents {
+      font-size: .45em;
+      font-weight: 400;
+      color: var(--ouro-escuro);
+      vertical-align: super;
+    }
+    .inv-vista {
+      font-size: 13px;
+      color: var(--muted);
+      letter-spacing: .08em;
+      margin-top: .8rem;
+    }
+    .inv-trust {
+      display: flex;
+      flex-direction: row;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .inv-trust span {
+      font-size: 11px;
+      color: var(--ouro-muted);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    /* ── FAQ ── */
+    .faq-item { border-bottom: .5px solid var(--superficie); padding: 1.4rem 0; }
+    .faq-item:first-child { border-top: .5px solid var(--superficie); }
+    .faq-q { font-size: 14px; font-weight: 600; color: var(--ouro-claro); margin-bottom: .55rem; }
+    .faq-a { font-size: 13px; color: var(--prata); line-height: 1.7; }
+
+    /* ── SOBRE ── */
+    .sobre-grid {
+      display: grid;
+      grid-template-columns: 1fr 415px;
+      gap: 5rem;
+      align-items: center;
+    }
+    .sobre-img-frame {
+      position: relative;
+      width: 415px;
+      height: 470px;
+      flex-shrink: 0;
+      border-radius: 4px;
+      overflow: hidden;
+      background: var(--card-bg);
+    }
+    .sobre-img-frame img {
+      width: 415px;
+      height: 470px;
+      object-fit: cover;
+      display: block;
+    }
+    .sobre-img-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      inset: 0;
+    }
+    @media (max-width: 900px) {
+      .sobre-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .sobre-image { order: -1; display: flex; justify-content: center; }
+      .sobre-img-frame { width: 350px; height: 397px; margin: 0 auto; border-radius: 12px; }
+      .sobre-img-frame img { width: 350px; height: 397px; border-radius: 12px; }
+    }
+
+    /* ── FINAL CTA ── */
+    .final-cta-text {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(16px, 2.8vw, 22px);
+      font-style: italic; color: var(--prata);
+      line-height: 1.65; max-width: 600px; margin: 0 auto 3rem;
+    }
+
+    /* ── STICKY CTA ── */
+    #sticky {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(10,9,6,.96);
+      border-top: .75px solid var(--ouro-escuro);
+      padding: .85rem 2rem;
+      display: flex; justify-content: center; align-items: center; gap: 2rem;
+      backdrop-filter: blur(8px);
+      transform: translateY(100%); transition: transform .4s ease;
+    }
+    #sticky.show { transform: translateY(0); }
+    .sticky-txt { font-size: 13px; color: var(--prata); }
+
+    /* ── OPORTUNIDADE TWO-COL ── */
+    #oportunidade {
+      padding: 80px 0;
+    }
+    .opor-wrap {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      box-sizing: border-box;
+    }
+    .opor-grid {
+      display: flex;
+      align-items: center;
+      gap: 60px;
+    }
+    .opor-content {
+      width: 450px;
+      min-width: 0;
+      flex-shrink: 0;
+    }
+    .opor-image {
+      flex-shrink: 0;
+    }
+    .opor-image img {
+      width: 710px;
+      height: auto;
+      display: block;
+    }
+    .opor-stats {
+      display: flex;
+      gap: 1.2rem;
+      flex-wrap: nowrap;
+      border-top: .5px solid var(--superficie);
+      padding-top: 1.8rem;
+      margin-top: 2rem;
+    }
+    .opor-stat { text-align: left; flex: 1; }
+    .opor-stat .stat-num { font-size: 20px; }
+    .opor-stat .stat-lbl { font-size: 9px; }
+    #oportunidade .hero-h2::before { display: none; }
+    @media (max-width: 1000px) {
+      .opor-grid { flex-direction: column; align-items: flex-start; gap: 2.5rem; }
+      .opor-content { width: 100%; }
+      .opor-image { width: 350px; }
+      .opor-image img { width: 350px; }
+    }
+
+    /* ── CURSO EDITORIAL ── */
+    .curso-band {
+      background: linear-gradient(180deg, #0E0C07 0%, #151108 60%, #0E0C07 100%);
+      padding: 80px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .curso-band::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 30% 50%, rgba(201,168,124,.05) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .curso-layout {
+      display: flex;
+      align-items: center;
+      gap: 6rem;
+    }
+    .curso-title-col {
+      flex-shrink: 0;
+      width: fit-content;
+    }
+    .curso-masthead { line-height: 1; }
+    .curso-word-vivendo {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(52px, 7vw, 96px);
+      font-weight: 900;
+      color: var(--ouro);
+      text-transform: uppercase;
+      letter-spacing: .01em;
+      display: block;
+    }
+    .curso-word-vivendo em { font-style: italic; }
+    .curso-word-do {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(28px, 4vw, 52px);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--ouro-escuro);
+      letter-spacing: .04em;
+      display: block;
+      margin: .1em 0 .15em .08em;
+    }
+    .curso-word-direito {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(26px, 3.5vw, 46px);
+      font-weight: 400;
+      color: var(--ouro-claro);
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      line-height: 1.15;
+      display: block;
+    }
+    .curso-desc-col {
+      border-left: .75px solid var(--ouro-escuro);
+      padding-left: 3rem;
+    }
+    .curso-desc-main {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 30px;
+      font-weight: 400;
+      font-style: italic;
+      color: var(--ouro-claro);
+      line-height: 1.55;
+      margin-bottom: .5rem;
+    }
+    .curso-sep-dot {
+      color: var(--ouro-escuro);
+      font-size: 8px;
+      margin: 1.2rem 0;
+      display: block;
+    }
+    @media (max-width: 768px) {
+      .curso-layout { flex-direction: column; gap: 2.5rem; }
+      .curso-title-col { width: 100%; }
+      .curso-desc-col { border-left: none; padding-left: 0; border-top: .75px solid var(--ouro-escuro); padding-top: 2rem; width: 100%; }
+    }
+
+    /* ── SECTION GRADIENT DIVIDER ── */
+    .grad-div {
+      display: flex; flex-direction: column; gap: 6px; margin: 0;
+    }
+    .grad-div .l1 { height: .5px; background: var(--superficie); }
+    .grad-div .l2 { height: .75px; background: linear-gradient(to right, transparent, var(--ouro-escuro), var(--ouro), var(--ouro-escuro), transparent); }
+    .grad-div .l3 { height: .5px; background: var(--superficie); }
+
+    /* CTA button icon */
+    .btn-icon { width: 14px; height: 14px; flex-shrink: 0; }
+
+    @media (max-width: 600px) {
+      .container {
+        max-width: 350px;
+        padding: 0;
+      }
+      .opor-wrap {
+        max-width: 350px;
+        padding: 0;
+      }
+      .stats-bar { gap: 1.5rem; }
+      #sticky { flex-direction: column; gap: .75rem; }
+      .sticky-txt { display: none; }
+      .cm { display: none; }
+      .btn-primary {
+        font-size: 11px;
+        padding: .9rem 1.4rem;
+        letter-spacing: .07em;
+        white-space: nowrap;
+        width: 350px;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- SVG ICON DEFINITIONS -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none;" aria-hidden="true">
+  <!-- scales of justice -->
+  <symbol id="ic-scales" viewBox="0 0 24 24">
+    <line x1="12" y1="3" x2="12" y2="20" stroke="currentColor" stroke-width=".75" fill="none"/>
+    <line x1="4" y1="8" x2="20" y2="8" stroke="currentColor" stroke-width=".75"/>
+    <polyline points="4,8 2,14 6,14" stroke="currentColor" stroke-width=".75" fill="none"/>
+    <polyline points="20,8 18,14 22,14" stroke="currentColor" stroke-width=".75" fill="none"/>
+    <line x1="8" y1="20" x2="16" y2="20" stroke="currentColor" stroke-width=".75"/>
+  </symbol>
+  <!-- temple columns -->
+  <symbol id="ic-columns" viewBox="0 0 24 24">
+    <line x1="5" y1="8" x2="5" y2="19" stroke="currentColor" stroke-width=".75"/>
+    <line x1="12" y1="8" x2="12" y2="19" stroke="currentColor" stroke-width=".75"/>
+    <line x1="19" y1="8" x2="19" y2="19" stroke="currentColor" stroke-width=".75"/>
+    <line x1="3" y1="8" x2="21" y2="8" stroke="currentColor" stroke-width=".75"/>
+    <line x1="3" y1="19" x2="21" y2="19" stroke="currentColor" stroke-width=".75"/>
+    <polygon points="3,8 12,4 21,8" stroke="currentColor" stroke-width=".75" fill="none"/>
+  </symbol>
+  <!-- gavel -->
+  <symbol id="ic-gavel" viewBox="0 0 24 24">
+    <rect x="2" y="10" width="8" height="4" stroke="currentColor" stroke-width=".75" fill="none"/>
+    <line x1="10" y1="12" x2="20" y2="20" stroke="currentColor" stroke-width="1.2"/>
+    <rect x="11" y="3" width="8" height="4" stroke="currentColor" stroke-width=".75" fill="none" transform="rotate(-45 15 5)"/>
+  </symbol>
+  <!-- medical cross -->
+  <symbol id="ic-cross" viewBox="0 0 24 24">
+    <rect x="9" y="3" width="6" height="18" stroke="currentColor" stroke-width=".75" fill="none"/>
+    <rect x="3" y="9" width="18" height="6" stroke="currentColor" stroke-width=".75" fill="none"/>
+  </symbol>
+  <!-- ribbon / oncology -->
+  <symbol id="ic-ribbon" viewBox="0 0 24 24">
+    <path d="M12 5 C9 5 7 7 7 10 C7 13 9 14 12 14 C15 14 17 13 17 10 C17 7 15 5 12 5Z" stroke="currentColor" stroke-width=".75" fill="none"/>
+    <line x1="9" y1="14" x2="6" y2="21" stroke="currentColor" stroke-width=".75"/>
+    <line x1="15" y1="14" x2="18" y2="21" stroke="currentColor" stroke-width=".75"/>
+    <line x1="12" y1="5" x2="12" y2="2" stroke="currentColor" stroke-width=".75"/>
+    <polygon points="12,2 14,4 12,5 10,4" stroke="currentColor" stroke-width=".5" fill="none"/>
+  </symbol>
+  <!-- nested diamonds / TEA -->
+  <symbol id="ic-diamonds" viewBox="0 0 24 24">
+    <polygon points="12,2 22,12 12,22 2,12" stroke="currentColor" stroke-width=".75" fill="none"/>
+    <polygon points="12,7 17,12 12,17 7,12" stroke="currentColor" stroke-width=".5" fill="none"/>
+    <polygon points="12,10 14,12 12,14 10,12" fill="currentColor"/>
+  </symbol>
+  <!-- capsule / pill -->
+  <symbol id="ic-capsule" viewBox="0 0 24 24">
+    <rect x="4" y="8" width="16" height="8" rx="4" stroke="currentColor" stroke-width=".75" fill="none"/>
+    <line x1="12" y1="8" x2="12" y2="16" stroke="currentColor" stroke-width=".75"/>
+  </symbol>
+  <!-- mind / saúde mental -->
+  <symbol id="ic-mind" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width=".75" fill="none"/>
+    <line x1="12" y1="4" x2="12" y2="8" stroke="currentColor" stroke-width=".75"/>
+    <line x1="4" y1="12" x2="8" y2="12" stroke="currentColor" stroke-width=".75"/>
+    <line x1="16" y1="12" x2="20" y2="12" stroke="currentColor" stroke-width=".75"/>
+    <line x1="12" y1="16" x2="12" y2="20" stroke="currentColor" stroke-width=".75"/>
+    <polygon points="12,9 14,12 12,15 10,12" fill="currentColor"/>
+  </symbol>
+  <!-- syringe / diabetes -->
+  <symbol id="ic-syringe" viewBox="0 0 24 24">
+    <line x1="12" y1="2" x2="12" y2="6" stroke="currentColor" stroke-width=".75"/>
+    <rect x="8" y="6" width="8" height="13" stroke="currentColor" stroke-width=".75" fill="none"/>
+    <line x1="9" y1="10" x2="15" y2="10" stroke="currentColor" stroke-width=".5"/>
+    <line x1="9" y1="13" x2="15" y2="13" stroke="currentColor" stroke-width=".5"/>
+    <polygon points="10,19 12,23 14,19" stroke="currentColor" stroke-width=".75" fill="none"/>
+  </symbol>
+  <!-- shield / isenções -->
+  <symbol id="ic-shield" viewBox="0 0 24 24">
+    <path d="M12 3 L20 7 L20 13 C20 18 16 21 12 22 C8 21 4 18 4 13 L4 7 Z" stroke="currentColor" stroke-width=".75" fill="none"/>
+    <polygon points="12,9 14,13 12,17 10,13" fill="currentColor"/>
+  </symbol>
+  <!-- document + clock / previdenciário -->
+  <symbol id="ic-preview" viewBox="0 0 24 24">
+    <rect x="2" y="3" width="12" height="14" stroke="currentColor" stroke-width=".75" fill="none"/>
+    <line x1="5" y1="7" x2="11" y2="7" stroke="currentColor" stroke-width=".5"/>
+    <line x1="5" y1="10" x2="11" y2="10" stroke="currentColor" stroke-width=".5"/>
+    <circle cx="17" cy="17" r="5" stroke="currentColor" stroke-width=".75" fill="none"/>
+    <line x1="17" y1="14" x2="17" y2="17" stroke="currentColor" stroke-width=".75"/>
+    <line x1="17" y1="17" x2="20" y2="17" stroke="currentColor" stroke-width=".75"/>
+  </symbol>
+  <!-- hexagon / prática processual -->
+  <symbol id="ic-process" viewBox="0 0 24 24">
+    <polygon points="12,2 21,7 21,17 12,22 3,17 3,7" stroke="currentColor" stroke-width=".75" fill="none"/>
+    <polygon points="12,7 17,10 17,14 12,17 7,14 7,10" stroke="currentColor" stroke-width=".5" fill="none"/>
+    <polygon points="12,10 14,12 12,14 10,12" fill="currentColor"/>
+  </symbol>
+  <!-- megaphone / marketing -->
+  <symbol id="ic-megaphone" viewBox="0 0 24 24">
+    <polygon points="4,9 4,15 9,15 18,20 18,4 9,9" stroke="currentColor" stroke-width=".75" fill="none"/>
+    <line x1="4" y1="15" x2="6" y2="21" stroke="currentColor" stroke-width=".75"/>
+    <line x1="9" y1="9" x2="9" y2="15" stroke="currentColor" stroke-width=".5"/>
+    <line x1="21" y1="9" x2="21" y2="15" stroke="currentColor" stroke-width=".75"/>
+    <line x1="18" y1="8" x2="21" y2="9" stroke="currentColor" stroke-width=".75"/>
+    <line x1="18" y1="16" x2="21" y2="15" stroke="currentColor" stroke-width=".75"/>
+  </symbol>
+  <!-- document stack / kit de peças -->
+  <symbol id="ic-docs" viewBox="0 0 24 24">
+    <rect x="5" y="5" width="14" height="16" stroke="currentColor" stroke-width=".75" fill="none"/>
+    <rect x="3" y="3" width="14" height="16" stroke="currentColor" stroke-width=".5" fill="none"/>
+    <line x1="7" y1="9" x2="15" y2="9" stroke="currentColor" stroke-width=".5"/>
+    <line x1="7" y1="12" x2="15" y2="12" stroke="currentColor" stroke-width=".5"/>
+    <line x1="7" y1="15" x2="12" y2="15" stroke="currentColor" stroke-width=".5"/>
+  </symbol>
+  <!-- chat bubble / whatsapp -->
+  <symbol id="ic-chat" viewBox="0 0 24 24">
+    <path d="M3 5 L21 5 L21 16 L14 16 L10 20 L10 16 L3 16 Z" stroke="currentColor" stroke-width=".75" fill="none"/>
+    <line x1="7" y1="9" x2="17" y2="9" stroke="currentColor" stroke-width=".5"/>
+    <line x1="7" y1="12" x2="13" y2="12" stroke="currentColor" stroke-width=".5"/>
+  </symbol>
+  <!-- lock -->
+  <symbol id="ic-lock" viewBox="0 0 24 24">
+    <rect x="5" y="11" width="14" height="10" stroke="currentColor" stroke-width=".75" fill="none"/>
+    <path d="M8 11 L8 7 C8 4.8 10 3 12 3 C14 3 16 4.8 16 7 L16 11" stroke="currentColor" stroke-width=".75" fill="none"/>
+    <circle cx="12" cy="16" r="1.5" fill="currentColor"/>
+  </symbol>
+</svg>
+
+<!-- STICKY CTA -->
+<div id="sticky">
+  <a href="#matricula" class="btn-primary"><svg class="btn-icon"><use href="#ic-scales"/></svg> Garantir Minha Vaga →</a>
+</div>
+
+<div class="ribbon"></div>
+
+<!-- ══════════════════════════════════════════
+     HERO
+══════════════════════════════════════════ -->
+<section id="hero">
+  <div class="hero-bg"></div>
+
+  <!-- corner TL -->
+  <svg class="cm" style="top:24px;left:24px;" width="48" height="48" viewBox="0 0 56 56">
+    <line x1="8" y1="8" x2="48" y2="8" stroke="#C9A87C" stroke-width=".75"/>
+    <line x1="8" y1="8" x2="8" y2="48" stroke="#C9A87C" stroke-width=".75"/>
+    <polygon points="22,3 28,8 22,13" fill="#C9A87C"/>
+    <polygon points="3,22 8,28 13,22" fill="#C9A87C"/>
+  </svg>
+  <!-- corner TR -->
+  <svg class="cm" style="top:24px;right:24px;" width="48" height="48" viewBox="0 0 56 56">
+    <line x1="8" y1="8" x2="48" y2="8" stroke="#C9A87C" stroke-width=".75"/>
+    <line x1="48" y1="8" x2="48" y2="48" stroke="#C9A87C" stroke-width=".75"/>
+    <polygon points="34,3 28,8 34,13" fill="#C9A87C"/>
+    <polygon points="53,22 48,28 43,22" fill="#C9A87C"/>
+  </svg>
+  <!-- corner BL -->
+  <svg class="cm" style="bottom:24px;left:24px;" width="48" height="48" viewBox="0 0 56 56">
+    <line x1="8" y1="48" x2="48" y2="48" stroke="#C9A87C" stroke-width=".75"/>
+    <line x1="8" y1="8" x2="8" y2="48" stroke="#C9A87C" stroke-width=".75"/>
+    <polygon points="22,53 28,48 22,43" fill="#C9A87C"/>
+    <polygon points="3,34 8,28 13,34" fill="#C9A87C"/>
+  </svg>
+  <!-- corner BR -->
+  <svg class="cm" style="bottom:24px;right:24px;" width="48" height="48" viewBox="0 0 56 56">
+    <line x1="8" y1="48" x2="48" y2="48" stroke="#C9A87C" stroke-width=".75"/>
+    <line x1="48" y1="8" x2="48" y2="48" stroke="#C9A87C" stroke-width=".75"/>
+    <polygon points="34,53 28,48 34,43" fill="#C9A87C"/>
+    <polygon points="53,34 48,28 43,34" fill="#C9A87C"/>
+  </svg>
+
+  <div class="container">
+    <div class="hero-inner">
+
+      <!-- LOGO -->
+      <div class="hero-logo a1">
+        <img src="logo.png" alt="Direito da Saúde — Cristiano Sobral">
+      </div>
+
+      <!-- HEADLINE -->
+      <div class="a2">
+        <h1 class="hero-line1">O passo a passo para V<em>i</em>ver do D<em>i</em>reito da Saúde</h1>
+        <h2 class="hero-h2">A Área Mais Lucrativa da Advocacia Brasileira</h2>
+      </div>
+
+      <!-- ORNAMENT -->
+      <div class="a3">
+        <svg class="orn" width="260" height="24" viewBox="0 0 260 24" style="margin:1.8rem 0;display:block;">
+          <line x1="10" y1="12" x2="80" y2="12" stroke="#8B6535" stroke-width=".75"/>
+          <polygon points="85,12 90,8 95,12 90,16" fill="none" stroke="#C9A87C" stroke-width=".75"/>
+          <polygon points="100,8 110,12 100,16 104,12" fill="none" stroke="#C9A87C" stroke-width=".5"/>
+          <line x1="110" y1="8" x2="130" y2="8" stroke="#C9A87C" stroke-width=".75"/>
+          <polygon points="120,4 125,8 120,12 115,8" fill="#C9A87C"/>
+          <line x1="110" y1="16" x2="130" y2="16" stroke="#C9A87C" stroke-width=".75"/>
+          <polygon points="150,8 160,12 150,16 154,12" fill="none" stroke="#C9A87C" stroke-width=".5"/>
+          <polygon points="165,12 170,8 175,12 170,16" fill="none" stroke="#C9A87C" stroke-width=".75"/>
+          <line x1="180" y1="12" x2="250" y2="12" stroke="#8B6535" stroke-width=".75"/>
+        </svg>
+      </div>
+
+      <!-- SUBTITLE -->
+      <div class="a3">
+        <p class="hero-subtitle">
+          Domine as teses que geram honorários iniciais, contratuais e as maiores sucumbências do Brasil.
+        </p>
+      </div>
+
+      <div class="a4">
+        <a href="#matricula" class="btn-primary"><svg class="btn-icon"><use href="#ic-scales"/></svg> Quero Me Matricular Agora →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="ribbon"></div>
+
+<!-- ══════════════════════════════════════════
+     A OPORTUNIDADE
+══════════════════════════════════════════ -->
+<section id="oportunidade">
+  <div class="opor-wrap">
+    <div class="opor-grid">
+
+      <!-- LEFT 450px -->
+      <div class="opor-content reveal">
+
+        <span class="label" style="display:block;margin-bottom:1.2rem;">◆ A Oportunidade</span>
+
+        <h2 class="hero-h2" style="font-size:21px;font-weight:700;letter-spacing:.08em;margin-bottom:1.8rem;">O Direito da Saúde é hoje a área com maior volume de demandas do Brasil.</h2>
+
+        <p class="body-text">
+          Mais de <strong>1,7 milhão de ações</strong> tramitam nos tribunais envolvendo planos de saúde, SUS e medicamentos. A judicialização da saúde cresce a cada ano e a maioria dos advogados ainda não sabe como atuar com técnica e estratégia.
+        </p>
+        <p class="body-text" style="margin-top:1.25rem;">
+          O mercado está aberto. Os clientes estão chegando. A pergunta é:
+        </p>
+        <div class="bq" style="margin-top:1.5rem;">
+          <p>Quando esse cliente bater na sua porta, você vai estar pronto?</p>
+        </div>
+
+        <div class="opor-stats">
+          <div class="opor-stat">
+            <span class="stat-num">1,7M+</span>
+            <span class="stat-lbl">Ações em tramitação</span>
+          </div>
+          <div class="opor-stat">
+            <span class="stat-num">Crescente</span>
+            <span class="stat-lbl">Judicialização anual</span>
+          </div>
+          <div class="opor-stat">
+            <span class="stat-num">Mercado</span>
+            <span class="stat-lbl">Aberto e desocupado</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT 450px -->
+      <div class="opor-image reveal">
+        <img src="noticias.png" alt="Notícias sobre judicialização da saúde">
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="ribbon"></div>
+
+<!-- ══════════════════════════════════════════
+     O CURSO
+══════════════════════════════════════════ -->
+<section id="curso">
+  <div class="curso-band">
+    <div class="container">
+
+      <div class="curso-layout">
+
+        <!-- LEFT: Logo -->
+        <div class="curso-title-col reveal">
+          <img src="logo.png" alt="Vivendo do Direito da Saúde" style="width:clamp(220px,30vw,380px);height:auto;display:block;">
+        </div>
+
+        <!-- RIGHT: Descrição -->
+        <div class="curso-desc-col reveal">
+          <p class="curso-desc-main">
+            O curso mais completo do Brasil para advogados que atuam ou querem atuar na área da saúde.
+          </p>
+          <p class="body-text" style="margin-top:1.4rem;">
+            Do básico ao avançado. Da fase extrajudicial à ação judicial. Do primeiro atendimento ao recebimento dos honorários.
+          </p>
+          <p class="body-text" style="margin-top:1.2rem;">
+            Com <strong>Cristiano Sobral</strong>, especialista em Direito da Saúde, autor, professor e um dos nomes de maior referência nessa área no Brasil.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     MÓDULOS
+══════════════════════════════════════════ -->
+<section class="section" id="modulos" style="padding-top:0;">
+  <div class="container">
+    <div class="section-hdr reveal" style="margin-bottom:1.5rem;">
+      <h2 class="section-heading">◆ O que você vai aprender</h2>
+    </div>
+
+    <div class="modules-grid">
+
+      <div class="module-card reveal">
+        <div class="mod-num">Módulo 01</div>
+        <svg class="mod-icon"><use href="#ic-scales"/></svg>
+        <div class="mod-title">Fundamentos do Direito da Saúde no Brasil</div>
+        <div class="mod-desc">A base que todo advogado precisa ter antes de entrar em qualquer ação. Princípios, estrutura do sistema de saúde, SUS e saúde suplementar.</div>
+      </div>
+
+      <div class="module-card reveal">
+        <div class="mod-num">Módulo 02</div>
+        <svg class="mod-icon"><use href="#ic-columns"/></svg>
+        <div class="mod-title">Fase Extrajudicial na Saúde Suplementar e SUS</div>
+        <div class="mod-desc">Como atuar antes de judicializar — NIP, notificações, fase administrativa. Estratégia que muitos advogados ignoram e que pode resolver o caso sem processo.</div>
+      </div>
+
+      <div class="module-card reveal">
+        <div class="mod-num">Módulo 03</div>
+        <svg class="mod-icon"><use href="#ic-gavel"/></svg>
+        <div class="mod-title">Judicialização do SUS</div>
+        <div class="mod-desc">Do administrativo ao judicial. Teses do STF e STJ, petição inicial, descumprimento, Portaria 7.676/2025 e muito mais.</div>
+      </div>
+
+      <div class="module-card reveal">
+        <div class="mod-num">Módulo 04</div>
+        <svg class="mod-icon"><use href="#ic-cross"/></svg>
+        <div class="mod-title">Saúde Suplementar — Planos de Saúde</div>
+        <div class="mod-desc">A área com maior volume de demandas do país. Contratos, cobertura, cancelamento abusivo, reajustes abusivos, carência, portabilidade e reembolso.</div>
+      </div>
+
+      <div class="module-card reveal">
+        <div class="mod-num">Módulo 05</div>
+        <svg class="mod-icon"><use href="#ic-ribbon"/></svg>
+        <div class="mod-title">Oncologia</div>
+        <div class="mod-desc">Uma das fronteiras mais rentáveis do Direito da Saúde. Liminares, medicamentos sem registro na ANVISA, honorários de sucumbência expressivos. Prospecção de clientes e precificação na área oncológica.</div>
+      </div>
+
+      <div class="module-card reveal">
+        <div class="mod-num">Módulo 06</div>
+        <svg class="mod-icon"><use href="#ic-diamonds"/></svg>
+        <div class="mod-title">Autismo e TEA</div>
+        <div class="mod-desc">Um mercado em explosão. Terapias, negativas abusivas, direito à educação, medicamentos, TEA, TDAH e transtornos globais. Cada família com uma criança autista é um cliente em potencial.</div>
+      </div>
+
+      <div class="module-card reveal">
+        <div class="mod-num">Módulo 07</div>
+        <svg class="mod-icon"><use href="#ic-capsule"/></svg>
+        <div class="mod-title">Medicamentos de Alto Custo e Doenças Raras</div>
+        <div class="mod-desc">Terapias genéticas, imunoterapia, off-label. Casos complexos que geram honorários que a maioria dos advogados nunca viu. Inclui Alzheimer, Esclerose Múltipla, Somatropina e muito mais.</div>
+      </div>
+
+      <div class="module-card reveal">
+        <div class="mod-num">Módulo 08</div>
+        <svg class="mod-icon"><use href="#ic-mind"/></svg>
+        <div class="mod-title">Saúde Mental e Psiquiatria Aplicadas ao Direito</div>
+        <div class="mod-desc">Laudos psiquiátricos, perícias, judicialização em saúde mental. O módulo que poucos cursos oferecem e que abre uma porta enorme de atuação.</div>
+      </div>
+
+      <div class="module-card reveal">
+        <div class="mod-num">Módulo 09</div>
+        <svg class="mod-icon"><use href="#ic-syringe"/></svg>
+        <div class="mod-title">Diabetes e Cirurgias Bariátricas</div>
+        <div class="mod-desc">Insulina no SUS, bomba de insulina, cirurgias reparadoras. Como atuar na defesa do paciente diabético do administrativo ao judicial.</div>
+      </div>
+
+      <div class="module-card reveal">
+        <div class="mod-num">Módulo 10</div>
+        <svg class="mod-icon"><use href="#ic-shield"/></svg>
+        <div class="mod-title">Isenções de Impostos para Pessoas com Deficiência</div>
+        <div class="mod-desc">IPI, ICMS, IOF, IPVA — do administrativo ao judicial. Um serviço que você pode oferecer a qualquer cliente com deficiência ou doença grave.</div>
+      </div>
+
+      <div class="module-card reveal">
+        <div class="mod-num">Módulo 11</div>
+        <svg class="mod-icon"><use href="#ic-preview"/></svg>
+        <div class="mod-title">Direito Previdenciário + Saúde</div>
+        <div class="mod-desc">BPC, LOAS, INSS, incapacidade, fibromialgia como deficiência, isenção de IR para doenças graves e FGTS. O elo que conecta saúde e previdência.</div>
+      </div>
+
+      <div class="module-card reveal">
+        <div class="mod-num">Módulo 12</div>
+        <svg class="mod-icon"><use href="#ic-process"/></svg>
+        <div class="mod-title">Prática Processual Civil</div>
+        <div class="mod-desc">CDC, tutelas de urgência, recursos, execução, Recurso Especial no STJ, atuação em tribunais e audiências. Porque não adianta dominar a área de saúde se você não domina o processo.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="ribbon"></div>
+
+<!-- ══════════════════════════════════════════
+     BÔNUS
+══════════════════════════════════════════ -->
+<section class="section" id="bonus">
+  <div class="container">
+    <div class="section-hdr reveal">
+      <span class="label">◆ Bônus</span>
+      <h2 class="section-heading bonus-heading" style="margin-top:.5rem;">Além de tudo isso, você ainda leva:</h2>
+    </div>
+
+    <div class="bonus-grid">
+
+      <div class="bonus-card reveal">
+        <span class="bonus-lbl"><svg class="bl-icon"><use href="#ic-megaphone"/></svg> Módulo Bônus</span>
+        <div class="bonus-title">Marketing Jurídico</div>
+        <div class="bonus-desc">Marketing jurídico, IA, Meta e Google Ads, Manychat e Google Meu Negócio. Você vai aprender a atrair clientes na internet do zero.</div>
+      </div>
+
+      <div class="bonus-card reveal">
+        <span class="bonus-lbl"><svg class="bl-icon"><use href="#ic-docs"/></svg> Kit de Peças</span>
+        <div class="bonus-title">Kit de Peças da Saúde</div>
+        <div class="bonus-desc">Modelos de petições prontos para usar imediatamente nos seus casos. Não precisa criar do zero — abre o modelo, adapta para o seu cliente e protocola.</div>
+      </div>
+
+      <div class="bonus-card reveal">
+        <span class="bonus-lbl"><svg class="bl-icon"><use href="#ic-chat"/></svg> Comunidade</span>
+        <div class="bonus-title">Grupo Exclusivo de WhatsApp</div>
+        <div class="bonus-desc">Uma comunidade ativa de advogados que estão trilhando o mesmo caminho. Para trocar casos, tirar dúvidas e fazer parcerias. Você não vai estar sozinho nessa jornada.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     QUANTO VALE TUDO ISSO
+══════════════════════════════════════════ -->
+<section class="section" id="valor">
+  <div class="container">
+    <div class="section-hdr reveal" style="margin-bottom:3rem;">
+      <span class="label">◆ Investimento</span>
+      <h2 class="section-heading" style="margin-top:.5rem;">Quanto Vale Tudo Isso?</h2>
+    </div>
+
+    <div class="valor-list reveal">
+
+      <div class="valor-list-header">
+        <span>Item</span>
+        <span>Valor</span>
+      </div>
+
+      <div class="valor-item">
+        <div class="valor-item-left">
+          <span class="valor-idx">01</span>
+          <span class="valor-name">15+ módulos temáticos + centenas de horas</span>
+        </div>
+        <span class="valor-price">R$ 8.000</span>
+      </div>
+
+      <div class="valor-item">
+        <div class="valor-item-left">
+          <span class="valor-idx">02</span>
+          <span class="valor-name">Kit de Peças da Saúde</span>
+        </div>
+        <span class="valor-price">R$ 497</span>
+      </div>
+
+      <div class="valor-item">
+        <div class="valor-item-left">
+          <span class="valor-idx">03</span>
+          <span class="valor-name">Módulo Bônus de Direito Médico</span>
+        </div>
+        <span class="valor-price">R$ 1.200</span>
+      </div>
+
+      <div class="valor-item">
+        <div class="valor-item-left">
+          <span class="valor-idx">04</span>
+          <span class="valor-name">Livro Manual Prático de Direito do Consumidor</span>
+        </div>
+        <span class="valor-price">R$ 300</span>
+      </div>
+
+      <div class="valor-item">
+        <div class="valor-item-left">
+          <span class="valor-idx">05</span>
+          <span class="valor-name">Assistente de IA de produção de conteúdo</span>
+        </div>
+        <span class="valor-price">R$ 997</span>
+      </div>
+
+      <div class="valor-total">
+        <span class="valor-total-label">Total percebido</span>
+        <div class="valor-total-right">
+          <span class="valor-total-risked">R$ 10.994</span>
+          <span class="valor-total-hint">incluso no curso</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="ribbon"></div>
+
+<!-- ══════════════════════════════════════════
+     SEU INVESTIMENTO
+══════════════════════════════════════════ -->
+<section id="matricula">
+  <div class="inv-band">
+    <div class="container">
+
+      <div class="inv-label reveal">
+        <span class="label">◆ Seu Investimento</span>
+        <div class="inv-rule"></div>
+      </div>
+
+      <div class="inv-layout reveal">
+
+        <div class="inv-from">De R$ 10.994,00</div>
+
+        <div class="inv-installment-tag">por apenas 12x de</div>
+
+        <div class="inv-price-hero">
+          <span class="inv-currency">R$</span>
+          <span class="inv-amount">249<span class="inv-cents">,66</span></span>
+        </div>
+
+        <div class="inv-vista">ou R$ 2.497 à vista</div>
+
+        <svg width="200" height="14" viewBox="0 0 200 14" style="display:block;margin:2rem auto;">
+          <line x1="0" y1="7" x2="60" y2="7" stroke="#3A2E1A" stroke-width=".75"/>
+          <polygon points="65,7 70,3 75,7 70,11" fill="none" stroke="#8B6535" stroke-width=".75"/>
+          <polygon points="85,3 95,7 85,11 89,7" fill="none" stroke="#8B6535" stroke-width=".5"/>
+          <polygon points="95,0 100,4 95,7 91,4" fill="#8B6535"/>
+          <polygon points="105,3 115,7 105,11 109,7" fill="none" stroke="#8B6535" stroke-width=".5"/>
+          <polygon points="125,7 130,3 135,7 130,11" fill="none" stroke="#8B6535" stroke-width=".75"/>
+          <line x1="140" y1="7" x2="200" y2="7" stroke="#3A2E1A" stroke-width=".75"/>
+        </svg>
+
+        <a href="https://chk.eduzz.com/1W32YDDD92" target="_blank" rel="noopener" class="btn-primary" style="justify-content:center;">
+          <svg class="btn-icon"><use href="#ic-scales"/></svg> Quero Me Matricular Agora →
+        </a>
+
+        <div class="inv-trust">
+          <span>✓ Acesso imediato</span>
+          <span>✓ Pagamento seguro</span>
+          <span>✓ 12 meses de acesso</span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="ribbon"></div>
+
+<!-- ══════════════════════════════════════════
+     SOBRE O CRIS
+══════════════════════════════════════════ -->
+<section class="section" id="sobre">
+  <div class="container">
+
+    <div class="sobre-grid reveal">
+
+      <!-- LEFT: texto -->
+      <div class="sobre-content">
+        <span class="label" style="display:block;margin-bottom:1.2rem;">◆ Quem Vai Te Guiar Nessa Jornada</span>
+
+        <h2 style="font-family:'Playfair Display',Georgia,serif;font-size:clamp(32px,4vw,48px);font-weight:700;color:var(--ouro);line-height:1.1;margin-bottom:1.6rem;">Cristiano Sobral</h2>
+
+        <p class="body-text" style="font-size:15px;color:var(--ouro-claro);font-style:italic;margin-bottom:1.5rem;">
+          Doutor em Direito. Advogado há mais de 20 anos. Referência nacional em Direito do Consumidor e da Saúde.
+        </p>
+
+        <p class="body-text" style="margin-bottom:1.2rem;">
+          Cristiano começou a atuar na saúde quando sua filha nasceu com uma condição cardíaca grave e ele precisou enfrentar um dos maiores planos do país para garantir o tratamento. Ali entendeu: Direito da Saúde não é sobre peticionar, é sobre proteger o que é vital.
+        </p>
+
+        <p class="body-text" style="margin-bottom:1.2rem;">
+          Desde então, já atuou em centenas de ações de saúde, estruturou núcleos para grandes escritórios, formou mais de <strong>20 mil alunos</strong> e criou o maior acervo de petições práticas do país em saúde suplementar.
+        </p>
+
+        <p class="body-text">
+          Ele conhece os bastidores, os atalhos técnicos, as objeções dos juízes e as falhas dos planos. Mais importante: sabe ensinar você a usar tudo isso com resultado.
+        </p>
+      </div>
+
+      <!-- RIGHT: foto -->
+      <div class="sobre-image">
+        <div class="sobre-img-frame">
+          <img src="cris.png" alt="Cristiano Sobral" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="sobre-img-placeholder"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="ribbon"></div>
+
+<!-- ══════════════════════════════════════════
+     FAQ
+══════════════════════════════════════════ -->
+<section class="section" id="faq">
+  <div class="container" style="max-width:700px;">
+    <div class="section-hdr reveal">
+      <span class="label">◆ Dúvidas Frequentes</span>
+      <svg class="orn" width="200" height="24" viewBox="0 0 200 24" style="margin-top:1rem;">
+        <line x1="10" y1="12" x2="60" y2="12" stroke="#8B6535" stroke-width=".75"/>
+        <polygon points="65,12 70,8 75,12 70,16" fill="none" stroke="#C9A87C" stroke-width=".75"/>
+        <polygon points="80,8 90,12 80,16 84,12" fill="none" stroke="#C9A87C" stroke-width=".5"/>
+        <line x1="90" y1="8" x2="110" y2="8" stroke="#C9A87C" stroke-width=".75"/>
+        <polygon points="100,4 105,8 100,12 95,8" fill="#C9A87C"/>
+        <line x1="90" y1="16" x2="110" y2="16" stroke="#C9A87C" stroke-width=".75"/>
+        <polygon points="120,8 130,12 120,16 124,12" fill="none" stroke="#C9A87C" stroke-width=".5"/>
+        <polygon points="125,12 130,8 135,12 130,16" fill="none" stroke="#C9A87C" stroke-width=".75"/>
+        <line x1="140" y1="12" x2="190" y2="12" stroke="#8B6535" stroke-width=".75"/>
+      </svg>
+    </div>
+
+    <div class="reveal">
+      <div class="faq-item">
+        <div class="faq-q">Qual é o prazo de acesso ao curso?</div>
+        <div class="faq-a">12 meses. Com acesso a todo o conteúdo disponível e a tudo que for adicionado ao longo do período.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">As aulas já estão disponíveis?</div>
+        <div class="faq-a">Sim. Ao fazer sua matrícula, você tem acesso imediato a todo o conteúdo.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Como funciona o pagamento?</div>
+        <div class="faq-a">Cartão de crédito, à vista ou em até 12 parcelas. O processamento é feito com segurança pela Hotmart.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Tive dificuldade para realizar o pagamento. O que faço?</div>
+        <div class="faq-a">Entre em contato com nossa equipe de suporte pelo botão de WhatsApp na página. A equipe está disponível para te ajudar a finalizar sua matrícula.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">O curso tem certificado?</div>
+        <div class="faq-a">Sim. Ao concluir o curso você recebe o certificado de conclusão.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Esse curso é para mim se eu já atuo em outra área?</div>
+        <div class="faq-a">Sim. O Vivendo do Direito da Saúde foi construído tanto para quem quer começar do zero quanto para quem já advoga e quer adicionar uma nova e lucrativa área de atuação.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="ribbon"></div>
+
+<!-- ══════════════════════════════════════════
+     FINAL CTA
+══════════════════════════════════════════ -->
+<section class="section" style="background:linear-gradient(180deg,var(--fundo) 0%,#0D0B07 100%);position:relative;text-align:center;" id="cta-final">
+
+  <!-- corner TL -->
+  <svg style="position:absolute;top:32px;left:32px;" width="44" height="44" viewBox="0 0 56 56">
+    <line x1="8" y1="8" x2="48" y2="8" stroke="#C9A87C" stroke-width=".75"/>
+    <line x1="8" y1="8" x2="8" y2="48" stroke="#C9A87C" stroke-width=".75"/>
+    <polygon points="22,3 28,8 22,13" fill="#C9A87C"/>
+    <polygon points="3,22 8,28 13,22" fill="#C9A87C"/>
+  </svg>
+  <!-- corner TR -->
+  <svg style="position:absolute;top:32px;right:32px;" width="44" height="44" viewBox="0 0 56 56">
+    <line x1="8" y1="8" x2="48" y2="8" stroke="#C9A87C" stroke-width=".75"/>
+    <line x1="48" y1="8" x2="48" y2="48" stroke="#C9A87C" stroke-width=".75"/>
+    <polygon points="34,3 28,8 34,13" fill="#C9A87C"/>
+    <polygon points="53,22 48,28 43,22" fill="#C9A87C"/>
+  </svg>
+
+  <div class="container" style="max-width:680px;">
+    <div class="reveal">
+      <p class="final-cta-text">
+        O Direito da Saúde exige coragem.<br><br>
+        Algumas pessoas vão esperar. Vão procrastinar. Vão dizer que não é a hora certa. Sempre haverá uma desculpa.<br><br>
+        Para quem decidiu dar o próximo passo: bem-vindos ao Vivendo do Direito da Saúde.
+      </p>
+    </div>
+
+    <div class="reveal" style="margin-bottom:1.2rem;">
+      <a href="#matricula" class="btn-primary">
+        <svg class="btn-icon"><use href="#ic-scales"/></svg> Quero Começar Agora — R$ 2.497 À Vista →
+      </a>
+    </div>
+
+    <div class="reveal">
+      <p style="font-size:12px;color:var(--muted);letter-spacing:.06em;font-style:italic;">
+        ou 12x de R$ 249,70 · Acesso imediato · Pagamento seguro
+      </p>
+    </div>
+
+    <div class="reveal" style="margin-top:3rem;">
+      <svg class="orn" width="260" height="24" viewBox="0 0 260 24">
+        <line x1="10" y1="12" x2="80" y2="12" stroke="#8B6535" stroke-width=".75"/>
+        <polygon points="85,12 90,8 95,12 90,16" fill="none" stroke="#C9A87C" stroke-width=".75"/>
+        <polygon points="100,8 110,12 100,16 104,12" fill="none" stroke="#C9A87C" stroke-width=".5"/>
+        <line x1="110" y1="8" x2="130" y2="8" stroke="#C9A87C" stroke-width=".75"/>
+        <polygon points="120,4 125,8 120,12 115,8" fill="#C9A87C"/>
+        <line x1="110" y1="16" x2="130" y2="16" stroke="#C9A87C" stroke-width=".75"/>
+        <polygon points="150,8 160,12 150,16 154,12" fill="none" stroke="#C9A87C" stroke-width=".5"/>
+        <polygon points="165,12 170,8 175,12 170,16" fill="none" stroke="#C9A87C" stroke-width=".75"/>
+        <line x1="180" y1="12" x2="250" y2="12" stroke="#8B6535" stroke-width=".75"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<div class="ribbon"></div>
+
+<!-- ══════════════════════════════════════════
+     SCRIPTS
+══════════════════════════════════════════ -->
+<script>
+  // Scroll reveal
+  const revEls = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  revEls.forEach(el => obs.observe(el));
+
+  // Staggered module cards
+  document.querySelectorAll('.module-card').forEach((c, i) => {
+    c.style.transitionDelay = `${i * 0.04}s`;
+  });
+
+  // Sticky CTA: show after hero, hide from #valor onwards
+  const hero = document.getElementById('hero');
+  const valor = document.getElementById('valor');
+  const sticky = document.getElementById('sticky');
+  window.addEventListener('scroll', () => {
+    const pastHero = hero.getBoundingClientRect().bottom < 0;
+    const reachedValor = valor.getBoundingClientRect().top <= window.innerHeight * 0.8;
+    sticky.classList.toggle('show', pastHero && !reachedValor);
+  }, { passive: true });
+</script>
+
+<script>
+(function() {
+     const utmParamQueryString = new URLSearchParams(window.location.search);
+     if (utmParamQueryString.toString()) {
+          var navLinks = document.querySelectorAll('a');
+          navLinks.forEach(function(item) {
+               if (item.href.indexOf('chk.eduzz.com') !== -1) {
+                    if (item.href.indexOf('?') === -1) {
+                         item.href += '?' + utmParamQueryString.toString();
+                    } else {
+                         item.href += '&' + utmParamQueryString.toString();
+                    }
+               }
+          });
+     }
+})();
+</script>
+
+</body>
+</html>
