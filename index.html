@@ -340,6 +340,154 @@
     .bonus-title { font-size: 14px; font-weight: 600; color: var(--ouro-claro); margin-bottom: .45rem; }
     .bonus-desc { font-size: 12px; color: var(--ouro-muted); line-height: 1.6; }
 
+    /* ── SUPER BÔNUS ── */
+    @keyframes goldGlow {
+      0%, 100% { box-shadow: 0 0 30px rgba(201,168,124,.25), 0 0 80px rgba(201,168,124,.08); }
+      50%       { box-shadow: 0 0 55px rgba(201,168,124,.5),  0 0 140px rgba(201,168,124,.18); }
+    }
+    @keyframes borderFlow {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    @keyframes shimmerSlide {
+      0%   { transform: translateX(-120%) skewX(-20deg); }
+      100% { transform: translateX(350%) skewX(-20deg); }
+    }
+    @keyframes floatNum {
+      0%, 100% { transform: translateY(0px) scale(1); }
+      50%       { transform: translateY(-8px) scale(1.02); }
+    }
+    @keyframes starPulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: .7; transform: scale(1.15); }
+    }
+    .super-bonus-wrap {
+      grid-column: 1 / -1;
+      position: relative;
+      padding: 2.5px;
+      border-radius: 18px;
+      background: linear-gradient(90deg, #5C4208, #C9A87C, #F0E0B8, #E8D5B0, #C9A87C, #8B6510, #5C4208);
+      background-size: 300% 300%;
+      animation: borderFlow 5s ease infinite, goldGlow 3.5s ease-in-out infinite;
+      margin-bottom: .5rem;
+    }
+    .super-bonus-card {
+      background: linear-gradient(145deg, #0C0900 0%, #160E00 35%, #0A0700 70%, #060400 100%);
+      border-radius: 16px;
+      padding: 2.8rem 3.2rem;
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    .super-bonus-card::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 100% at 10% 50%, rgba(201,168,124,.09) 0%, transparent 60%),
+        radial-gradient(ellipse 35% 70% at 85% 50%, rgba(201,168,124,.05) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .super-bonus-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: -120%; width: 55%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(232,213,176,.07), transparent);
+      animation: shimmerSlide 5s ease-in-out infinite 1.5s;
+      pointer-events: none;
+    }
+    .super-bonus-num-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .super-bonus-num-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -20px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(201,168,124,.12) 0%, transparent 70%);
+      animation: goldGlow 3.5s ease-in-out infinite;
+    }
+    .super-bonus-num {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(90px, 10vw, 130px);
+      font-weight: 700;
+      line-height: 1;
+      color: transparent;
+      background: linear-gradient(160deg, #6B4E0A 0%, #C9A87C 30%, #F0E0B8 55%, #E8D5B0 65%, #B8903C 85%, #6B4E0A 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      animation: floatNum 4.5s ease-in-out infinite;
+      position: relative;
+      z-index: 1;
+      text-shadow: none;
+      filter: drop-shadow(0 0 20px rgba(201,168,124,.35));
+    }
+    .super-bonus-content { position: relative; z-index: 1; }
+    .super-bonus-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      background: linear-gradient(90deg, rgba(201,168,124,.12), rgba(232,213,176,.22), rgba(201,168,124,.12));
+      border: .75px solid rgba(201,168,124,.5);
+      border-radius: 100px;
+      padding: .35rem 1.1rem;
+      font-size: 9px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--ouro);
+      margin-bottom: 1.1rem;
+    }
+    .super-bonus-badge-star {
+      animation: starPulse 2s ease-in-out infinite;
+      display: inline-block;
+    }
+    .super-bonus-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(20px, 2.8vw, 30px);
+      font-weight: 700;
+      color: var(--ouro-claro);
+      line-height: 1.3;
+      margin-bottom: 1rem;
+    }
+    .super-bonus-encontros {
+      display: flex;
+      align-items: center;
+      gap: .6rem;
+      margin-bottom: .9rem;
+    }
+    .super-bonus-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--ouro);
+      flex-shrink: 0;
+      box-shadow: 0 0 8px rgba(201,168,124,.6);
+    }
+    .super-bonus-encontros-label {
+      font-size: 11px;
+      color: var(--ouro);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    .super-bonus-desc {
+      font-size: 13px;
+      color: var(--ouro-muted);
+      line-height: 1.75;
+      max-width: 540px;
+    }
+    @media (max-width: 720px) {
+      .super-bonus-card { grid-template-columns: 1fr; gap: 1.2rem; padding: 2rem 1.5rem; text-align: center; }
+      .super-bonus-num { font-size: 80px; }
+      .super-bonus-encontros { justify-content: center; }
+      .super-bonus-desc { max-width: 100%; }
+    }
+
     /* ── VALOR LIST ── */
     --vermelho: #9B2B2B;
     .valor-list {
@@ -1234,6 +1382,23 @@
     </div>
 
     <div class="bonus-grid">
+
+      <div class="super-bonus-wrap reveal">
+        <div class="super-bonus-card">
+          <div class="super-bonus-num-wrap">
+            <span class="super-bonus-num">12</span>
+          </div>
+          <div class="super-bonus-content">
+            <span class="super-bonus-badge"><span class="super-bonus-badge-star">★</span> Super Bônus Exclusivo</span>
+            <div class="super-bonus-title">Encontros ao Vivo com Cristiano Sobral e Equipe para Tirar Dúvidas</div>
+            <div class="super-bonus-encontros">
+              <span class="super-bonus-dot"></span>
+              <span class="super-bonus-encontros-label">12 encontros exclusivos · ao vivo · direto com o professor</span>
+            </div>
+            <div class="super-bonus-desc">Acesso direto a quem construiu o método. Sessões ao vivo para discutir casos reais, esclarecer dúvidas técnicas e afinar sua estratégia de atuação — ao lado de Cristiano Sobral e sua equipe especializada. O bônus que mais alunos pedem e que nenhum curso oferece.</div>
+          </div>
+        </div>
+      </div>
 
       <div class="bonus-card reveal">
         <span class="bonus-lbl"><svg class="bl-icon"><use href="#ic-megaphone"/></svg> Módulo Bônus</span>
